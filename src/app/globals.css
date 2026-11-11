@@ -1,0 +1,379 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "yet-another-react-lightbox/styles.css";
+
+/* ============================================================
+   HUYỀN TRANG TOUR – Global CSS Design Tokens
+   Brand: Premium Private Car Service in Central Vietnam
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+:root {
+  /* === Brand Colors === */
+  --color-brand-navy:       #1E3A5F;
+  --color-brand-navy-dark:  #0F2035;
+  --color-brand-gold:       #D4AF37;
+  --color-brand-gold-light: #F5E6A3;
+  --color-brand-ev-green:   #16A34A;
+  --color-white:            #FFFFFF;
+  --color-surface:          #FAFAF8;
+  --color-surface-subtle:   #F5F5F3;
+
+  /* === Typography === */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-accent:  'Cormorant Garamond', Georgia, serif;
+
+  /* === Spacing === */
+  --space-section: clamp(4rem, 8vw, 8rem);
+
+  /* === Transitions === */
+  --transition-fast:   150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow:   500ms ease;
+
+  /* === Shadows === */
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(30,58,95,0.06);
+  --shadow-hover:   0 4px 12px rgba(0,0,0,0.1), 0 16px 40px rgba(30,58,95,0.12);
+  --shadow-nav:     0 2px 20px rgba(30,58,95,0.08);
+
+  /* shadcn/ui tokens */
+  --background: 0 0% 100%;
+  --foreground: 215 60% 25%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 60% 25%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 60% 25%;
+  --primary: 215 60% 24%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 45 65% 52%;
+  --secondary-foreground: 215 60% 10%;
+  --muted: 210 20% 96%;
+  --muted-foreground: 215 20% 50%;
+  --accent: 45 65% 52%;
+  --accent-foreground: 215 60% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 215 60% 24%;
+  --radius: 0.5rem;
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+
+  /* Smooth scrolling for anchor links */
+  :target {
+    scroll-margin-top: 80px;
+  }
+
+  /* Focus visible styles */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================
+   Component Utilities
+   ============================================================ */
+@layer components {
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-heading font-semibold text-brand-500;
+  }
+
+  /* Gold accent line */
+  .gold-line {
+    @apply block w-16 h-1 bg-gold-500 rounded-full;
+  }
+
+  /* Premium badge */
+  .badge-premium {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest;
+    background: linear-gradient(135deg, #D4AF37 0%, #F5E6A3 100%);
+    color: #0F2035;
+  }
+
+  /* Price display */
+  .price-vnd {
+    @apply text-xl font-bold text-brand-500;
+  }
+
+  .price-usd {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* CTA Button - Primary Gold */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm uppercase tracking-wide transition-all duration-200;
+    background: linear-gradient(135deg, #D4AF37 0%, #C49B23 100%);
+    color: #0F2035;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.35);
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(212,175,55,0.45);
+  }
+
+  .btn-gold:active {
+    transform: translateY(0);
+  }
+
+  /* CTA Button - Navy */
+  .btn-navy {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm uppercase tracking-wide text-white transition-all duration-200;
+    background: linear-gradient(135deg, #1E3A5F 0%, #0F2035 100%);
+    box-shadow: 0 4px 15px rgba(30,58,95,0.3);
+  }
+
+  .btn-navy:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(30,58,95,0.4);
+  }
+
+  /* Ghost button */
+  .btn-ghost-white {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm uppercase tracking-wide text-white border border-white/40 backdrop-blur-sm transition-all duration-200;
+  }
+
+  .btn-ghost-white:hover {
+    @apply bg-white/10 border-white/60;
+  }
+
+  /* Overlay gradient for images */
+  .image-overlay {
+    background: linear-gradient(180deg, transparent 40%, rgba(15,32,53,0.95) 100%);
+  }
+
+  .image-overlay-hero {
+    background: linear-gradient(180deg, rgba(15,32,53,0.4) 0%, rgba(15,32,53,0.2) 50%, rgba(15,32,53,0.6) 100%);
+  }
+
+  /* Glass card */
+  .glass-card {
+    @apply backdrop-blur-md border border-white/20;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    @apply animate-pulse rounded bg-gray-200;
+  }
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+@layer utilities {
+  /* Text gradient gold */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #D4AF37, #F5E6A3, #C49B23);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Text gradient brand */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #1E3A5F, #3B6BA5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer animation */
+  .shimmer {
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.4) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  /* Gold pulse */
+  .pulse-gold {
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Aspect ratios */
+  .aspect-route-card {
+    aspect-ratio: 4/3;
+  }
+
+  /* Safe bottom padding for mobile fixed bar */
+  .pb-safe {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem);
+  }
+}
+
+/* ============================================================
+   Mobile Bottom Contact Bar
+   ============================================================ */
+.mobile-contact-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  backdrop-filter: blur(16px);
+  background: rgba(15,32,53,0.95);
+  border-top: 1px solid rgba(212,175,55,0.3);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.mobile-contact-bar a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.25rem;
+  gap: 0.25rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+  min-height: 56px;
+  touch-action: manipulation;
+}
+
+.mobile-contact-bar a:hover,
+.mobile-contact-bar a:active {
+  color: #D4AF37;
+  background: rgba(212,175,55,0.1);
+}
+
+.mobile-contact-bar a:last-child {
+  background: linear-gradient(135deg, #D4AF37 0%, #C49B23 100%);
+  color: #0F2035 !important;
+  font-weight: 700;
+}
+
+.mobile-contact-bar a:last-child:hover {
+  background: linear-gradient(135deg, #E8C84A 0%, #D4AF37 100%);
+  color: #0F2035 !important;
+}
+
+/* ============================================================
+   Lightbox Customization
+   ============================================================ */
+.yarl__container {
+  background: rgba(0,0,0,0.95) !important;
+}
+
+/* ============================================================
+   Custom Scrollbar (Desktop only)
+   ============================================================ */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F5F5F3;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1E3A5F;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+  }
+}
+
+/* ============================================================
+   Mobile Bar Special Animations
+   ============================================================ */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes phone-ring {
+  0%, 100% { transform: rotate(0deg); }
+  10%, 30% { transform: rotate(-18deg) scale(1.1); }
+  20%, 40% { transform: rotate(18deg) scale(1.1); }
+  50% { transform: rotate(0deg) scale(1); }
+}
+
+.animate-phone-ring {
+  animation: phone-ring 1.8s ease-in-out infinite;
+}
+
+
