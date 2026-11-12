@@ -4,9 +4,8 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Car, Users, Sparkles } from "lucide-react";
+import { ArrowRight, Star, Car, CarFront } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { Sedan4Icon, Suv7Icon } from "@/components/ui/VehicleIcons";
 import { getLocalizedRoutes } from "@/data/routes";
 import { formatVND, formatUSD } from "@/lib/utils";
 
@@ -88,7 +87,7 @@ export default function FeaturedRoutes() {
                     <div className="flex flex-col justify-between rounded-xl bg-white p-2.5 shadow-xs border border-gray-100/80 transition-all hover:border-brand-200">
                       <div className="flex items-center gap-1.5 text-gray-500 mb-1">
                         <div className="w-5 h-5 rounded-md bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
-                          <Sedan4Icon className="w-3.5 h-3.5" />
+                          <Car className="w-3.5 h-3.5" />
                         </div>
                         <span className="text-[11px] font-bold text-gray-700 tracking-tight">
                           Xe 4 chỗ
@@ -104,14 +103,14 @@ export default function FeaturedRoutes() {
                       </div>
                     </div>
 
-                    {/* 7-Seater VinFast Limo Price */}
+                    {/* 7-Seater Price */}
                     <div className="relative flex flex-col justify-between rounded-xl bg-gradient-to-br from-gold-50 to-amber-50/50 p-2.5 shadow-xs border border-gold-200/80 transition-all hover:border-gold-300">
                       <div className="flex items-center gap-1.5 text-gold-900 mb-1">
                         <div className="w-5 h-5 rounded-md bg-gold-400 text-brand-950 flex items-center justify-center flex-shrink-0 shadow-xs">
-                          <Suv7Icon className="w-3.5 h-3.5" />
+                          <CarFront className="w-3.5 h-3.5" />
                         </div>
                         <span className="text-[11px] font-extrabold text-gold-900 tracking-tight">
-                          7 chỗ Limo
+                          Xe 7 chỗ
                         </span>
                       </div>
                       <div>

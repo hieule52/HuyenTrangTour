@@ -4,9 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { Star, Car, ArrowRight, Check, Sparkles, ShieldCheck } from "lucide-react";
+import { Star, Car, CarFront, ArrowRight, Check } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { Sedan4Icon, Suv7Icon } from "@/components/ui/VehicleIcons";
 import { getLocalizedRoutes } from "@/data/routes";
 import { formatVND, formatUSD } from "@/lib/utils";
 
@@ -112,7 +111,7 @@ export default function PricingPage() {
                   <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 transition-all hover:border-slate-300">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-md bg-white border border-gray-200 text-slate-700 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                        <Sedan4Icon className="w-4 h-4" />
+                        <Car className="w-4 h-4" />
                       </div>
                       <span className="text-xs font-bold text-slate-800">
                         {t('car4Seats')}
@@ -132,7 +131,7 @@ export default function PricingPage() {
                   <div className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-gold-50/80 to-amber-50/50 border border-gold-200/80 transition-all hover:border-gold-300">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-md bg-gold-400 text-brand-950 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                        <Suv7Icon className="w-4 h-4" />
+                        <CarFront className="w-4 h-4" />
                       </div>
                       <span className="text-xs font-extrabold text-gold-950">
                         {t('car7Seats')}
