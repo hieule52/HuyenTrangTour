@@ -4,8 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { Star, Car, ArrowRight, Check } from "lucide-react";
+import { Star, Car, ArrowRight, Check, Sparkles, ShieldCheck } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { Sedan4Icon, Suv7Icon } from "@/components/ui/VehicleIcons";
 import { getLocalizedRoutes } from "@/data/routes";
 import { formatVND, formatUSD } from "@/lib/utils";
 
@@ -82,10 +83,10 @@ export default function PricingPage() {
                   </div>
                 )}
 
-                {/* Category Pill */}
-                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/60 backdrop-blur-md px-3 py-1 text-xs font-medium text-white">
+                {/* Vehicle Pill */}
+                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/65 backdrop-blur-md px-3 py-1 text-xs font-semibold text-white border border-white/10">
                   <Car className="h-3.5 w-3.5 text-gold-400" />
-                  <span>{route.vehicle}</span>
+                  <span>4 – 7 chỗ riêng tư</span>
                 </div>
               </div>
 
@@ -105,33 +106,43 @@ export default function PricingPage() {
                   <span>{t('included')}</span>
                 </div>
 
-                {/* Dual Price Comparison Block */}
-                <div className="mt-5 pt-4 border-t border-gray-100 space-y-2.5">
+                {/* Professional Dual Pricing Comparison Block */}
+                <div className="mt-4 pt-3.5 border-t border-gray-100 space-y-2">
                   {/* Xe 4 chỗ */}
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-warm border border-gray-100">
-                    <span className="text-xs font-bold text-brand-600 bg-white px-2.5 py-1 rounded-lg border border-gray-200 shadow-xs">
-                      🚗 {t('car4Seats')}
-                    </span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 transition-all hover:border-slate-300">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-white border border-gray-200 text-slate-700 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                        <Sedan4Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-xs font-bold text-slate-800">
+                        {t('car4Seats')}
+                      </span>
+                    </div>
                     <div className="text-right">
-                      <span className="text-base sm:text-lg font-extrabold text-brand-500">
+                      <span className="text-base font-extrabold text-brand-900">
                         {formatVND(route.price4SeatsVND)}
                       </span>
-                      <span className="text-xs font-semibold text-gray-500 ml-1.5">
+                      <span className="text-xs font-medium text-gray-400 ml-1.5">
                         ({formatUSD(route.price4SeatsUSD)})
                       </span>
                     </div>
                   </div>
 
                   {/* Xe 7 chỗ */}
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-gold-50/60 border border-gold-200/70">
-                    <span className="text-xs font-bold text-brand-900 bg-gold-400 px-2.5 py-1 rounded-lg shadow-xs">
-                      🚙 {t('car7Seats')}
-                    </span>
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-gold-50/80 to-amber-50/50 border border-gold-200/80 transition-all hover:border-gold-300">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-gold-400 text-brand-950 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                        <Suv7Icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-xs font-extrabold text-gold-950">
+                        {t('car7Seats')}
+                      </span>
+                    </div>
                     <div className="text-right">
-                      <span className="text-base sm:text-lg font-extrabold text-gold-700">
+                      <span className="text-base font-extrabold text-gold-700">
                         {formatVND(route.price7SeatsVND)}
                       </span>
-                      <span className="text-xs font-semibold text-gold-600 ml-1.5">
+                      <span className="text-xs font-bold text-gold-600/90 ml-1.5">
                         ({formatUSD(route.price7SeatsUSD)})
                       </span>
                     </div>
@@ -139,13 +150,15 @@ export default function PricingPage() {
                 </div>
 
                 {/* CTA Button */}
-                <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                  <span className="text-xs text-gray-400 font-medium">
-                    {t('startFrom')}: <strong className="text-brand-500">{formatVND(route.price4SeatsVND)}</strong>
-                  </span>
+                <div className="mt-4 pt-3.5 border-t border-gray-100 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span>Giá trọn gói</span>
+                  </div>
+
                   <Link
                     href={`/contact?route=${route.id}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-gold-500 px-5 py-2.5 text-xs font-bold text-brand-900 shadow-sm transition-all hover:bg-gold-400 hover:shadow-md active:scale-95"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 px-5 py-2.5 text-xs font-extrabold text-brand-900 shadow-sm transition-all hover:from-gold-400 hover:to-gold-300 hover:shadow-md active:scale-95"
                   >
                     <span>{t('bookNow')}</span>
                     <ArrowRight className="h-3.5 w-3.5" />

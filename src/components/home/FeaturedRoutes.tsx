@@ -4,8 +4,9 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Car } from "lucide-react";
+import { ArrowRight, Star, Car, Users, Sparkles } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { Sedan4Icon, Suv7Icon } from "@/components/ui/VehicleIcons";
 import { getLocalizedRoutes } from "@/data/routes";
 import { formatVND, formatUSD } from "@/lib/utils";
 
@@ -64,9 +65,9 @@ export default function FeaturedRoutes() {
                 )}
 
                 {/* Vehicle Pill */}
-                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/60 backdrop-blur-md px-2.5 py-1 text-xs font-medium text-white">
+                <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/65 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-white border border-white/10">
                   <Car className="h-3.5 w-3.5 text-gold-400" />
-                  <span>{t('vehiclePill')}</span>
+                  <span>4 – 7 chỗ riêng tư</span>
                 </div>
               </div>
 
@@ -76,43 +77,69 @@ export default function FeaturedRoutes() {
                   {route.name}
                 </h3>
 
-                <p className="mt-2 text-sm text-gray-600 line-clamp-2 leading-relaxed flex-1">
+                <p className="mt-1.5 text-xs sm:text-sm text-gray-600 line-clamp-2 leading-relaxed flex-1">
                   {route.description}
                 </p>
 
-                {/* Dual price preview */}
-                <div className="mt-4 pt-3 border-t border-gray-100 grid grid-cols-2 gap-2 text-xs">
-                  <div className="rounded-lg bg-surface-warm p-2 border border-gray-100">
-                    <div className="text-[11px] font-semibold text-gray-500">🚗 4 chỗ</div>
-                    <div className="font-bold text-brand-600 mt-0.5">{formatVND(route.price4SeatsVND)}</div>
-                    <div className="text-[10px] text-gray-400">({formatUSD(route.price4SeatsUSD)})</div>
-                  </div>
-                  <div className="rounded-lg bg-gold-50/70 p-2 border border-gold-200/60">
-                    <div className="text-[11px] font-semibold text-gold-800">🚙 7 chỗ</div>
-                    <div className="font-bold text-gold-700 mt-0.5">{formatVND(route.price7SeatsVND)}</div>
-                    <div className="text-[10px] text-gold-600">({formatUSD(route.price7SeatsUSD)})</div>
-                  </div>
-                </div>
+                {/* Professional Dual Pricing Block */}
+                <div className="mt-4 pt-3.5 border-t border-gray-100">
+                  <div className="grid grid-cols-2 gap-2 rounded-2xl bg-slate-50/80 p-2 border border-slate-100 shadow-inner">
+                    {/* 4-Seater Price */}
+                    <div className="flex flex-col justify-between rounded-xl bg-white p-2.5 shadow-xs border border-gray-100/80 transition-all hover:border-brand-200">
+                      <div className="flex items-center gap-1.5 text-gray-500 mb-1">
+                        <div className="w-5 h-5 rounded-md bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
+                          <Sedan4Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <span className="text-[11px] font-bold text-gray-700 tracking-tight">
+                          Xe 4 chỗ
+                        </span>
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-black text-brand-900 leading-tight">
+                          {formatVND(route.price4SeatsVND)}
+                        </div>
+                        <div className="text-[10px] font-semibold text-gray-400 mt-0.5">
+                          {formatUSD(route.price4SeatsUSD)}
+                        </div>
+                      </div>
+                    </div>
 
-                {/* Booking CTA row */}
-                <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] uppercase tracking-wider text-gray-400 font-medium">
-                      {t('from')}
-                    </span>
-                    <div className="text-base font-extrabold text-brand-500">
-                      {formatVND(route.price4SeatsVND)}
+                    {/* 7-Seater VinFast Limo Price */}
+                    <div className="relative flex flex-col justify-between rounded-xl bg-gradient-to-br from-gold-50 to-amber-50/50 p-2.5 shadow-xs border border-gold-200/80 transition-all hover:border-gold-300">
+                      <div className="flex items-center gap-1.5 text-gold-900 mb-1">
+                        <div className="w-5 h-5 rounded-md bg-gold-400 text-brand-950 flex items-center justify-center flex-shrink-0 shadow-xs">
+                          <Suv7Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <span className="text-[11px] font-extrabold text-gold-900 tracking-tight">
+                          7 chỗ Limo
+                        </span>
+                      </div>
+                      <div>
+                        <div className="text-sm sm:text-base font-black text-gold-700 leading-tight">
+                          {formatVND(route.price7SeatsVND)}
+                        </div>
+                        <div className="text-[10px] font-bold text-gold-600/90 mt-0.5">
+                          {formatUSD(route.price7SeatsUSD)}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Booking CTA */}
-                  <Link
-                    href={`/contact?route=${route.id}`}
-                    className="inline-flex items-center gap-1.5 rounded-xl bg-gold-500 px-4 py-2.5 text-xs font-bold text-brand-900 transition-all hover:bg-gold-400 hover:shadow-md"
-                  >
-                    <span>{t('bookBtn')}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
+                  {/* Booking Action Row */}
+                  <div className="mt-3.5 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Xe riêng trọn gói</span>
+                    </div>
+
+                    <Link
+                      href={`/contact?route=${route.id}`}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-400 px-4 py-2 text-xs font-bold text-brand-900 shadow-sm transition-all hover:from-gold-400 hover:to-gold-300 hover:shadow-md active:scale-95"
+                    >
+                      <span>{t('bookBtn')}</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
