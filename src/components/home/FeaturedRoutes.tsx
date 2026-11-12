@@ -66,7 +66,7 @@ export default function FeaturedRoutes() {
                 {/* Vehicle Pill */}
                 <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/65 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-white border border-white/10">
                   <Car className="h-3.5 w-3.5 text-gold-400" />
-                  <span>4 – 7 chỗ riêng tư</span>
+                  <span>{t('vehiclePill')}</span>
                 </div>
               </div>
 
@@ -90,7 +90,7 @@ export default function FeaturedRoutes() {
                           <Car className="w-3.5 h-3.5" />
                         </div>
                         <span className="text-[11px] font-bold text-gray-700 tracking-tight">
-                          Xe 4 chỗ
+                          {t('car4Seats')}
                         </span>
                       </div>
                       <div>
@@ -110,7 +110,7 @@ export default function FeaturedRoutes() {
                           <CarFront className="w-3.5 h-3.5" />
                         </div>
                         <span className="text-[11px] font-extrabold text-gold-900 tracking-tight">
-                          Xe 7 chỗ
+                          {t('car7Seats')}
                         </span>
                       </div>
                       <div>
@@ -128,7 +128,7 @@ export default function FeaturedRoutes() {
                   <div className="mt-3.5 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-100">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Xe riêng trọn gói</span>
+                      <span>{t('allInclusive')}</span>
                     </div>
 
                     <Link

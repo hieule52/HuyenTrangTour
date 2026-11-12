@@ -85,7 +85,7 @@ export default function PricingPage() {
                 {/* Vehicle Pill */}
                 <div className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-lg bg-black/65 backdrop-blur-md px-3 py-1 text-xs font-semibold text-white border border-white/10">
                   <Car className="h-3.5 w-3.5 text-gold-400" />
-                  <span>4 – 7 chỗ riêng tư</span>
+                  <span>{t('vehiclePill')}</span>
                 </div>
               </div>
 
@@ -152,7 +152,7 @@ export default function PricingPage() {
                 <div className="mt-4 pt-3.5 border-t border-gray-100 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
                     <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span>Giá trọn gói</span>
+                    <span>{t('allInclusive')}</span>
                   </div>
 
                   <Link
