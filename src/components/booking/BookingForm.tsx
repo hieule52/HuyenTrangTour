@@ -344,8 +344,8 @@ export default function BookingForm() {
           >
             <option value="">{t('routePlaceholder')}</option>
             {routes.map((r) => (
-              <option key={r.id} value={`${r.name} - ${r.priceVND.toLocaleString("vi-VN")}đ`}>
-                {r.name} ({r.priceVND.toLocaleString("vi-VN")}đ / ${r.priceUSD})
+              <option key={r.id} value={`${r.name} (4 chỗ: ${r.price4SeatsVND.toLocaleString("vi-VN")}đ | 7 chỗ: ${r.price7SeatsVND.toLocaleString("vi-VN")}đ)`}>
+                {r.name} — 🚗 4 chỗ: {r.price4SeatsVND.toLocaleString("vi-VN")}đ (${r.price4SeatsUSD}) | 🚙 7 chỗ: {r.price7SeatsVND.toLocaleString("vi-VN")}đ (${r.price7SeatsUSD})
               </option>
             ))}
           </select>

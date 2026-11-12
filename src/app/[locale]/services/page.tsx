@@ -10,14 +10,14 @@ const SERVICES_DATA = [
     id: "city-tour",
     titleKey: "cityTour",
     image: "/images/hue3diem.jpg",
-    priceRange: "800.000 VNĐ (31 USD)",
+    priceRange: "Từ 700.000 VNĐ (27 USD)",
     routeIds: ["hue-city-3", "hue-city-4", "hue-city-5"],
   },
   {
     id: "inter-city",
     titleKey: "interCity",
     image: "/images/hue-danang.jpg",
-    priceRange: "1.600.000 VNĐ (62 USD)",
+    priceRange: "Từ 1.400.000 VNĐ (54 USD)",
     routeIds: [
       "hue-danang",
       "danang-hue",
@@ -32,14 +32,14 @@ const SERVICES_DATA = [
     id: "airport",
     titleKey: "airport",
     image: "/images/hue-sanbay.jpg",
-    priceRange: "250.000 VNĐ (10 USD)",
+    priceRange: "Từ 200.000 VNĐ (8 USD)",
     routeIds: ["hue-airport"],
   },
   {
     id: "special-tour",
     titleKey: "specialTour",
     image: "/images/hue-quangtri.jpg",
-    priceRange: "1.950.000 VNĐ (75 USD)",
+    priceRange: "Từ 1.750.000 VNĐ (67 USD)",
     routeIds: ["hue-quangtri", "hue-khesanh"],
   },
 ];

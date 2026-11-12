@@ -7,6 +7,10 @@ export interface Route {
   description?: string;
   priceVND: number;
   priceUSD: number;
+  price4SeatsVND: number;
+  price4SeatsUSD: number;
+  price7SeatsVND: number;
+  price7SeatsUSD: number;
   image: string;
   category: RouteCategory;
   popular?: boolean;
