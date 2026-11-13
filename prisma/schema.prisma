@@ -105,3 +105,4 @@ model SystemSetting {
   whatsappUrl  String   @default("https://wa.me/84364483597")
   updatedAt    DateTime @updatedAt
 }
+

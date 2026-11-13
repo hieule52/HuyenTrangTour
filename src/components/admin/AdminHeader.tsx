@@ -57,3 +57,4 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
     </header>
   );
 }
+
