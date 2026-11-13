@@ -202,11 +202,9 @@ export default function AdminReviewsPage() {
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
                         {rev.user.image ? (
-                          <Image
+                          <img
                             src={rev.user.image}
                             alt=""
-                            width={32}
-                            height={32}
                             className="w-8 h-8 rounded-full object-cover border border-gray-200"
                           />
                         ) : (
@@ -345,11 +343,9 @@ export default function AdminReviewsPage() {
             {/* Customer profile */}
             <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl border border-gray-100 mb-4">
               {selectedReview.user.image ? (
-                <Image
+                <img
                   src={selectedReview.user.image}
                   alt=""
-                  width={44}
-                  height={44}
                   className="w-11 h-11 rounded-full object-cover"
                 />
               ) : (

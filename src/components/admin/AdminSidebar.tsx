@@ -104,11 +104,9 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
       <div className="p-4 border-t border-brand-800/80 bg-brand-950/40">
         <div className="flex items-center gap-3 mb-3">
           {user?.image ? (
-            <Image
+            <img
               src={user.image}
               alt={user.name || 'Admin'}
-              width={38}
-              height={38}
               className="w-9 h-9 rounded-full object-cover border border-gold-400/40"
             />
           ) : (

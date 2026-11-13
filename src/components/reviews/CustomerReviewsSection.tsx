@@ -299,11 +299,9 @@ export default function CustomerReviewsSection({
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     {review.user.image ? (
-                      <Image
+                      <img
                         src={review.user.image}
                         alt={review.user.name || 'Khách hàng'}
-                        width={44}
-                        height={44}
                         className="w-11 h-11 rounded-full object-cover border-2 border-gold-200 shadow-sm"
                       />
                     ) : (

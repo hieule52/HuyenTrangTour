@@ -264,11 +264,9 @@ export default function ReviewModal({
               {/* User profile preview */}
               <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
                 {session.user?.image ? (
-                  <Image
+                  <img
                     src={session.user.image}
                     alt={session.user.name || 'User'}
-                    width={40}
-                    height={40}
                     className="w-10 h-10 rounded-full object-cover border border-gray-200"
                   />
                 ) : (

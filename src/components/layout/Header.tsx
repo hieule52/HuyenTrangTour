@@ -172,11 +172,9 @@ export default function Header() {
                     className="flex items-center gap-1.5 p-1 rounded-full hover:ring-2 hover:ring-gold-400 transition"
                   >
                     {session.user.image ? (
-                      <Image
+                      <img
                         src={session.user.image}
                         alt={session.user.name || 'User'}
-                        width={32}
-                        height={32}
                         className="w-8 h-8 rounded-full object-cover border border-gray-200"
                       />
                     ) : (

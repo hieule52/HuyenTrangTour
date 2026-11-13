@@ -102,11 +102,9 @@ export default function AdminCustomersPage() {
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         {customer.image ? (
-                          <Image
+                          <img
                             src={customer.image}
                             alt=""
-                            width={34}
-                            height={34}
                             className="w-8 h-8 rounded-full object-cover border border-gray-200"
                           />
                         ) : (
