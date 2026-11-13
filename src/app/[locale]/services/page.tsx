@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { Check } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import CustomerReviewsSection from "@/components/reviews/CustomerReviewsSection";
 import { routes } from "@/data/routes";
 
 const SERVICES_DATA = [
@@ -153,6 +154,11 @@ export default async function ServicesPage() {
           })}
         </div>
       </div>
+
+      {/* Customer Reviews Section */}
+      <CustomerReviewsSection
+        services={routes.map((r) => ({ id: r.id, slug: r.id, title: r.name }))}
+      />
     </div>
   );
 }

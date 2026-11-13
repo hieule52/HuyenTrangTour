@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "お電話",
     "book": "今すぐ予約"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "お客様の声・体験談",
+    "subtitle": "HUYEN TRANG TOUR をご利用いただいたお客様からの心温まるご感想と評価をご紹介します。",
+    "writeBtn": "レビューを書く",
+    "filterAll": "すべて",
+    "modalTitle": "レビューを投稿する",
+    "loginPrompt": "Google ログインしてレビューを投稿",
+    "ratingLabel": "星評価",
+    "contentLabel": "ご感想・体験談",
+    "contentPlaceholder": "HUYEN TRANG TOUR 専用車サービスのご利用体験をお聞かせください...",
+    "imagesLabel": "旅の写真 (最大5枚)",
+    "submitBtn": "レビューを送信",
+    "submitting": "送信中...",
+    "successTitle": "レビューをありがとうございます！",
+    "successDesc": "お寄せいただいたレビューは管理者の承認後に公開されます。"
   }
 }

@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "致电咨询",
     "book": "立即订车"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "旅客真实好评与体验",
+    "subtitle": "来自全球各地旅客的真实行程分享与评价，见证每一次贴心与专业的接送体验。",
+    "writeBtn": "撰写评价",
+    "filterAll": "全部",
+    "modalTitle": "写下您的评价",
+    "loginPrompt": "登录 Google 提交评价",
+    "ratingLabel": "评分星级",
+    "contentLabel": "体验心得",
+    "contentPlaceholder": "请分享您对 HUYEN TRANG TOUR 专车服务的真实感受...",
+    "imagesLabel": "实拍照片 (最多5张)",
+    "submitBtn": "提交评价",
+    "submitting": "正在提交评价...",
+    "successTitle": "感谢您的评价！",
+    "successDesc": "您的评价已成功提交，待管理员审核后将公开展示。"
   }
 }

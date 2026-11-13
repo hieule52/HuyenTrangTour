@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Globe, Phone, ChevronDown, Check } from 'lucide-react';
+import { Menu, X, Globe, Phone, ChevronDown, Check, ShieldCheck, LogOut, User as UserIcon } from 'lucide-react';
 import FlagIcon from '@/components/ui/FlagIcon';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 const NAV_ITEMS = [
   { key: 'home', href: '/' },
@@ -34,6 +35,8 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -159,6 +162,73 @@ export default function Header() {
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* User Google Session / Login */}
+              {session?.user ? (
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="flex items-center gap-1.5 p-1 rounded-full hover:ring-2 hover:ring-gold-400 transition"
+                  >
+                    {session.user.image ? (
+                      <Image
+                        src={session.user.image}
+                        alt={session.user.name || 'User'}
+                        width={32}
+                        height={32}
+                        className="w-8 h-8 rounded-full object-cover border border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-xs">
+                        {session.user.name?.charAt(0) || 'U'}
+                      </div>
+                    )}
+                  </button>
+
+                  <AnimatePresence>
+                    {isUserMenuOpen && (
+                      <>
+                        <div className="fixed inset-0 z-10" onClick={() => setIsUserMenuOpen(false)} />
+                        <motion.div
+                          initial={{ opacity: 0, y: -6, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                          className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-20 py-2"
+                        >
+                          <div className="px-4 py-2 border-b border-gray-100">
+                            <p className="text-xs font-bold text-gray-900 truncate">{session.user.name}</p>
+                            <p className="text-[10px] text-gray-400 truncate">{session.user.email}</p>
+                          </div>
+
+                          {session.user.role === 'ADMIN' && (
+                            <Link
+                              href="/admin"
+                              onClick={() => setIsUserMenuOpen(false)}
+                              className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-brand-900 hover:bg-gold-50 transition text-left w-full"
+                            >
+                              <ShieldCheck className="w-4 h-4 text-gold-600" />
+                              <span>Trang Quản Trị (Admin)</span>
+                            </Link>
+                          )}
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsUserMenuOpen(false);
+                              signOut();
+                            }}
+                            className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition text-left w-full"
+                          >
+                            <LogOut className="w-3.5 h-3.5" />
+                            <span>Đăng xuất</span>
+                          </button>
+                        </motion.div>
+                      </>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : null}
 
               {/* CTA Button */}
               <Link href="/contact" className="hidden sm:flex btn-gold text-xs md:text-sm">

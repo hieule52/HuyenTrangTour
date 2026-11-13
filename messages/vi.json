@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "Gọi điện",
     "book": "Đặt xe"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "Trải Nghiệm Của Khách Hàng",
+    "subtitle": "Những chia sẻ chân thực từ khách hàng đã đồng hành cùng HUYỀN TRANG TOUR trên các hành trình khám phá miền Trung.",
+    "writeBtn": "Viết đánh giá",
+    "filterAll": "Tất cả",
+    "modalTitle": "Viết Đánh Giá Dịch Vụ",
+    "loginPrompt": "Đăng nhập Google để gửi đánh giá",
+    "ratingLabel": "Đánh giá số sao",
+    "contentLabel": "Nội dung chia sẻ trải nghiệm",
+    "contentPlaceholder": "Hãy chia sẻ trải nghiệm của bạn về dịch vụ HUYỀN TRANG TOUR...",
+    "imagesLabel": "Hình ảnh thực tế (Tối đa 5 ảnh)",
+    "submitBtn": "GỬI ĐÁNH GIÁ",
+    "submitting": "Đang gửi đánh giá...",
+    "successTitle": "Cảm ơn bạn đã gửi đánh giá!",
+    "successDesc": "Đánh giá của bạn đã được tiếp nhận và sẽ xuất hiện công khai sau khi được ban quản trị phê duyệt."
   }
 }

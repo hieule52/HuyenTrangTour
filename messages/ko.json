@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "전화하기",
     "book": "예약하기"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "고객 이용 후기 & 만족도",
+    "subtitle": "HUYEN TRANG TOUR와 함께 베트남 중부를 여행하신 소중한 고객님들의 솔직한 후기입니다.",
+    "writeBtn": "후기 작성하기",
+    "filterAll": "전체",
+    "modalTitle": "이용 후기 작성",
+    "loginPrompt": "Google 로그인 후 후기 작성",
+    "ratingLabel": "별점 평가",
+    "contentLabel": "후기 내용",
+    "contentPlaceholder": "HUYEN TRANG TOUR 서비스에 대한 솔직한 경험을 공유해 주세요...",
+    "imagesLabel": "실제 여행 사진 (최대 5장)",
+    "submitBtn": "후기 등록하기",
+    "submitting": "후기 등록 중...",
+    "successTitle": "소중한 후기 감사드립니다!",
+    "successDesc": "등록하신 후기는 관리자 승인 후 공개 게시됩니다."
   }
 }

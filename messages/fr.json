@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "Appeler",
     "book": "Réserver"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "Témoignages de Nos Voyageurs",
+    "subtitle": "Les retours authentiques de nos passagers ayant voyagé en toute sérénité à Hué et au Centre du Vietnam.",
+    "writeBtn": "Donner un avis",
+    "filterAll": "Tous",
+    "modalTitle": "Donner un Avis",
+    "loginPrompt": "Se connecter avec Google pour laisser un avis",
+    "ratingLabel": "Votre note",
+    "contentLabel": "Votre expérience",
+    "contentPlaceholder": "Partagez votre expérience avec HUYEN TRANG TOUR...",
+    "imagesLabel": "Photos réelles (Max 5 photos)",
+    "submitBtn": "ENVOYER L'AVIS",
+    "submitting": "Envoi de l'avis en cours...",
+    "successTitle": "Merci pour votre avis !",
+    "successDesc": "Votre avis a bien été reçu et sera publié dès validation par notre équipe."
   }
 }

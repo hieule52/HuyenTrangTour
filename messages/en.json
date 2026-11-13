@@ -260,5 +260,22 @@
   "mobileBar": {
     "call": "Call",
     "book": "Book Now"
+  },
+  "reviews": {
+    "eyebrow": "Customer Experiences",
+    "title": "Customer Experiences",
+    "subtitle": "Genuine reviews from travelers who experienced our private car service across Central Vietnam.",
+    "writeBtn": "Write a review",
+    "filterAll": "All",
+    "modalTitle": "Write a Review",
+    "loginPrompt": "Sign in with Google to write a review",
+    "ratingLabel": "Rating",
+    "contentLabel": "Your Experience",
+    "contentPlaceholder": "Share your genuine experience with HUYEN TRANG TOUR...",
+    "imagesLabel": "Photos (Max 5 photos)",
+    "submitBtn": "SUBMIT REVIEW",
+    "submitting": "Submitting review...",
+    "successTitle": "Thank you for your review!",
+    "successDesc": "Your review has been received and will be published once approved by our team."
   }
 }
