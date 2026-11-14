@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -88,11 +88,31 @@ export default function GalleryPage() {
   const tCta = useTranslations('cta');
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const [filter, setFilter] = useState("all");
+  const [images, setImages] = useState(REAL_IMAGES);
+
+  useEffect(() => {
+    fetch('/api/gallery')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.images && data.images.length > 0) {
+          setImages(
+            data.images.map((img: any) => ({
+              src: img.src,
+              title: img.title,
+              categoryId: img.category,
+              categoryLabelKey: `cat${img.category.charAt(0).toUpperCase() + img.category.slice(1)}`,
+              desc: img.subtitle || img.title,
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const filteredImages =
     filter === "all"
-      ? REAL_IMAGES
-      : REAL_IMAGES.filter((img) => img.categoryId === filter);
+      ? images
+      : images.filter((img) => img.categoryId === filter);
 
   return (
     <div className="bg-surface-warm min-h-screen py-12 md:py-16">
@@ -127,8 +147,8 @@ export default function GalleryPage() {
             <div
               key={idx}
               onClick={() => {
-                const originalIndex = REAL_IMAGES.findIndex((img) => img.src === item.src);
-                setLightboxIndex(originalIndex);
+                const originalIndex = images.findIndex((img) => img.src === item.src);
+                setLightboxIndex(originalIndex >= 0 ? originalIndex : idx);
               }}
               className="card-hover group relative overflow-hidden rounded-3xl bg-white shadow-sm border border-gray-100 cursor-pointer"
             >
@@ -186,7 +206,7 @@ export default function GalleryPage() {
           open={lightboxIndex >= 0}
           index={lightboxIndex}
           close={() => setLightboxIndex(-1)}
-          slides={REAL_IMAGES.map((img) => ({
+          slides={images.map((img) => ({
             src: img.src,
             title: img.title,
             description: img.desc,

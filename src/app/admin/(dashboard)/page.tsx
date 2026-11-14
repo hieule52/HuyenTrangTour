@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Car,
+  Images,
   MessageSquare,
   Clock,
   CheckCircle,
@@ -282,6 +283,23 @@ export default function AdminDashboardPage() {
                 </div>
                 <p className="text-xs text-gray-500">
                   Xem thông tin khách hàng, số lượng đánh giá đã để lại.
+                </p>
+              </Link>
+
+              <Link
+                href="/admin/gallery"
+                className="p-4 rounded-2xl border border-gray-100 hover:border-gold-300 hover:shadow-md transition-all bg-gray-50/50 group"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-gold-50 text-gold-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Images className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-bold text-brand-900 group-hover:text-gold-600">
+                    Quản lý khoảnh khắc
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Thêm, xóa, upload ảnh thực tế của du khách và dịch vụ xe.
                 </p>
               </Link>
 

@@ -139,7 +139,7 @@ export default function CustomerReviewsSection({
   });
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-white via-amber-50/20 to-white relative overflow-hidden" id="reviews">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-white via-amber-50/20 to-white relative overflow-hidden scroll-mt-20" id="reviews">
       {/* Decorative background glow */}
       <div className="absolute top-1/2 left-0 w-72 h-72 bg-gold-400/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-brand-500/5 rounded-full blur-3xl pointer-events-none" />

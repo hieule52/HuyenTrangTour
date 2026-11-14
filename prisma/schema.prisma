@@ -93,6 +93,22 @@ model ReviewImage {
   @@index([reviewId])
 }
 
+model GalleryImage {
+  id          String   @id @default(cuid())
+  src         String
+  title       String
+  subtitle    String?
+  category    String   @default("general")
+  sortOrder   Int      @default(0)
+  isPublic    Boolean  @default(true)
+  publicId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, isPublic])
+  @@index([sortOrder])
+}
+
 model SystemSetting {
   id           String   @id @default("default")
   brandName    String   @default("HUYỀN TRANG TOUR")

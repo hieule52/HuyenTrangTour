@@ -80,3 +80,4 @@ export default function AdminShell({ user, children }: AdminShellProps) {
     </div>
   );
 }
+

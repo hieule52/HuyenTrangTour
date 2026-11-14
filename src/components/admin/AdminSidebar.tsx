@@ -7,6 +7,7 @@ import { signOut } from 'next-auth/react';
 import {
   LayoutDashboard,
   Car,
+  Images,
   MessageSquare,
   Users,
   Settings,
@@ -30,6 +31,7 @@ interface AdminSidebarProps {
 const NAV_ITEMS = [
   { href: '/admin', label: 'Tổng Quan', icon: LayoutDashboard },
   { href: '/admin/services', label: 'Quản Lý Dịch Vụ', icon: Car },
+  { href: '/admin/gallery', label: 'Khoảnh Khắc', icon: Images },
   { href: '/admin/reviews', label: 'Quản Lý Đánh Giá', icon: MessageSquare },
   { href: '/admin/customers', label: 'Khách Hàng', icon: Users },
   { href: '/admin/settings', label: 'Cấu Hình Hệ Thống', icon: Settings },

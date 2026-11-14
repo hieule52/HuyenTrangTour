@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { key: 'services', href: '/services' },
   { key: 'pricing', href: '/pricing' },
   { key: 'gallery', href: '/gallery' },
+  { key: 'reviews', href: '/#reviews' },
   { key: 'contact', href: '/contact' },
 ];
 
@@ -59,6 +60,7 @@ export default function Header() {
   };
 
   const isActive = (href: string) => {
+    if (href.includes('#')) return false;
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };

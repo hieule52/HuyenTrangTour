@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -40,6 +40,24 @@ const GALLERY_IMAGES = [
 export default function GalleryPreview() {
   const t = useTranslations('gallerySection');
   const [index, setIndex] = useState(-1);
+  const [images, setImages] = useState(GALLERY_IMAGES);
+
+  useEffect(() => {
+    fetch('/api/gallery?limit=5')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.images && data.images.length >= 5) {
+          setImages(
+            data.images.slice(0, 5).map((img: any) => ({
+              src: img.src,
+              title: img.title,
+              subtitle: img.subtitle || 'Huyền Trang Tour',
+            }))
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="section-padding bg-white" id="gallery">
@@ -62,8 +80,8 @@ export default function GalleryPreview() {
             className="group relative md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden cursor-pointer shadow-md bg-gray-100"
           >
             <Image
-              src={GALLERY_IMAGES[0].src}
-              alt={GALLERY_IMAGES[0].title}
+              src={images[0].src}
+              alt={images[0].title}
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -71,10 +89,10 @@ export default function GalleryPreview() {
             <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
               <span className="text-xs font-semibold uppercase tracking-wider text-gold-400">
-                {GALLERY_IMAGES[0].subtitle}
+                {images[0].subtitle}
               </span>
               <h4 className="text-lg md:text-xl font-bold font-heading mt-1">
-                {GALLERY_IMAGES[0].title}
+                {images[0].title}
               </h4>
             </div>
             <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
@@ -83,7 +101,7 @@ export default function GalleryPreview() {
           </motion.div>
 
           {/* 4 Smaller Images */}
-          {GALLERY_IMAGES.slice(1).map((img, i) => (
+          {images.slice(1).map((img, i) => (
             <motion.div
               key={i + 1}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -129,7 +147,7 @@ export default function GalleryPreview() {
           open={index >= 0}
           index={index}
           close={() => setIndex(-1)}
-          slides={GALLERY_IMAGES.map((img) => ({
+          slides={images.map((img) => ({
             src: img.src,
             title: img.title,
             description: img.subtitle,
