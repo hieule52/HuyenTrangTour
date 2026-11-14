@@ -2,6 +2,11 @@ import { NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import prisma from './prisma';
 
+// Ensure NEXTAUTH_URL is production domain when running in production
+if (process.env.NODE_ENV === 'production' && (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.includes('localhost'))) {
+  process.env.NEXTAUTH_URL = 'https://www.huyentrangtour.com';
+}
+
 export const getAdminEmails = (): string[] => {
   return (process.env.ADMIN_EMAILS || '')
     .split(',')
