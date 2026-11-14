@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Car,
   Plus,
@@ -15,6 +15,9 @@ import {
   AlertCircle,
   Eye,
   EyeOff,
+  Upload,
+  Image as ImageIcon,
+  Check,
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -39,6 +42,19 @@ interface ServiceItem {
   _count?: { reviews: number };
 }
 
+const PRESET_IMAGES = [
+  { label: 'Huế – Đà Nẵng', url: '/images/hue-danang.jpg' },
+  { label: 'Huế – Hội An', url: '/images/hue-hoian.jpg' },
+  { label: 'Huế – Phong Nha', url: '/images/hue-phongnha.jpg' },
+  { label: 'Sân bay Phú Bài', url: '/images/hue-sanbay.jpg' },
+  { label: 'City Tour 3 điểm', url: '/images/hue3diem.jpg' },
+  { label: 'City Tour 4 điểm', url: '/images/Hue4diem.jpg' },
+  { label: 'Huế – Quảng Trị', url: '/images/hue-quangtri.jpg' },
+  { label: 'Đà Nẵng – Phong Nha', url: '/images/danang-phongnha.jpg' },
+  { label: 'Xe & Khách', url: '/images/sefiWithKhach.jpg' },
+  { label: 'Đón tại Khách sạn', url: '/images/xeDuaDonTaiKhachSan.jpg' },
+];
+
 export default function AdminServicesPage() {
   const [services, setServices] = useState<ServiceItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +63,55 @@ export default function AdminServicesPage() {
   const [editingService, setEditingService] = useState<ServiceItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+
+  // Image upload states
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<string>('/images/hue-danang.jpg');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [uploadMessage, setUploadMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setUploadMessage({ type: 'error', text: 'Chỉ chấp nhận file hình ảnh (JPG, PNG, WEBP).' });
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setUploadMessage({ type: 'error', text: 'Dung lượng ảnh tối đa 10MB.' });
+      return;
+    }
+
+    try {
+      setIsUploading(true);
+      setUploadMessage(null);
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success && data.url) {
+        setSelectedImage(data.url);
+        setUploadMessage({ type: 'success', text: 'Tải ảnh lên thành công!' });
+      } else {
+        setUploadMessage({ type: 'error', text: data.message || 'Lỗi khi tải ảnh lên.' });
+      }
+    } catch (err: any) {
+      setUploadMessage({ type: 'error', text: err.message || 'Không thể kết nối máy chủ.' });
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  };
 
   const fetchServices = async () => {
     try {
@@ -119,9 +184,9 @@ export default function AdminServicesPage() {
       price4SeatsUsd: parseInt(formData.get('price4SeatsUsd') as string, 10) || 0,
       price7SeatsVnd: parseInt(formData.get('price7SeatsVnd') as string, 10) || 0,
       price7SeatsUsd: parseInt(formData.get('price7SeatsUsd') as string, 10) || 0,
-      image: formData.get('image') as string,
+      image: (formData.get('image') as string) || selectedImage,
       category: formData.get('category') as string,
-      vehicle: formData.get('vehicle') as string,
+      vehicle: (formData.get('vehicle') as string) || 'Xe 4 chỗ & 7 chỗ',
       isActive: formData.get('isActive') === 'on',
       isFeatured: formData.get('isFeatured') === 'on',
     };
@@ -145,6 +210,7 @@ export default function AdminServicesPage() {
 
       setIsModalOpen(false);
       setEditingService(null);
+      setUploadMessage(null);
       fetchServices();
     } catch (err) {
       console.error(err);
@@ -175,6 +241,8 @@ export default function AdminServicesPage() {
         <button
           onClick={() => {
             setEditingService(null);
+            setSelectedImage('/images/hue-danang.jpg');
+            setUploadMessage(null);
             setIsModalOpen(true);
           }}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-brand-950 font-bold text-xs shadow-md hover:shadow-lg hover:from-gold-400 hover:to-gold-500 transition-all active:scale-95"
@@ -310,6 +378,8 @@ export default function AdminServicesPage() {
                       <button
                         onClick={() => {
                           setEditingService(service);
+                          setSelectedImage(service.image || '/images/hue-danang.jpg');
+                          setUploadMessage(null);
                           setIsModalOpen(true);
                         }}
                         className="p-1.5 rounded-lg text-brand-600 hover:bg-brand-50 transition"
@@ -340,7 +410,7 @@ export default function AdminServicesPage() {
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 my-8">
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
-              <h3 className="text-lg font-bold font-heading text-brand-900">
+              <h3 className="text-lg font-bold font-sans text-brand-900">
                 {editingService ? 'Chỉnh Sửa Tuyến Xe' : 'Thêm Tuyến Xe Mới'}
               </h3>
               <button
@@ -378,31 +448,134 @@ export default function AdminServicesPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Danh mục</label>
-                  <select
-                    name="category"
-                    defaultValue={editingService?.category || 'inter-city'}
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brand-500 outline-none bg-white"
-                  >
-                    <option value="city-tour">Huế City Tour</option>
-                    <option value="inter-city">Đưa đón liên tỉnh</option>
-                    <option value="airport">Sân bay Phú Bài</option>
-                    <option value="special-tour">Tour đặc biệt</option>
-                  </select>
+              <div>
+                <label className="block text-xs font-bold text-gray-700 mb-1">Danh mục tuyến</label>
+                <select
+                  name="category"
+                  defaultValue={editingService?.category || 'inter-city'}
+                  className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brand-500 outline-none bg-white"
+                >
+                  <option value="city-tour">Huế City Tour</option>
+                  <option value="inter-city">Đưa đón liên tỉnh</option>
+                  <option value="airport">Sân bay Phú Bài</option>
+                  <option value="special-tour">Tour đặc biệt</option>
+                </select>
+              </div>
+
+              {/* Image upload from PC / Phone & Preview */}
+              <div className="space-y-3 p-4 bg-slate-50/90 rounded-2xl border border-gray-200">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                    <ImageIcon className="w-4 h-4 text-brand-600" />
+                    <span>Hình ảnh đại diện tuyến xe</span>
+                  </label>
+                  <span className="text-[11px] text-gray-500 font-medium">Hỗ trợ PC & Điện thoại</span>
                 </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-1">Đường dẫn ảnh đại diện</label>
-                  <input
-                    type="text"
-                    name="image"
-                    required
-                    defaultValue={editingService?.image || '/images/hue-danang.jpg'}
-                    placeholder="/images/hue-danang.jpg"
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-brand-500 outline-none"
-                  />
+                {/* Preview + Upload Action */}
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  {/* Thumbnail Preview */}
+                  <div className="relative w-full sm:w-36 h-28 rounded-xl overflow-hidden bg-gray-200 border border-gray-300 flex-shrink-0 shadow-xs group">
+                    <img
+                      src={selectedImage}
+                      alt="Xem trước ảnh"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/images/hue-danang.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-[10px] font-bold">
+                      Xem trước
+                    </div>
+                  </div>
+
+                  {/* Upload button and input */}
+                  <div className="flex-1 w-full space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploading}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold shadow-sm transition active:scale-95 disabled:opacity-50"
+                      >
+                        {isUploading ? (
+                          <>
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            <span>Đang tải lên...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="w-3.5 h-3.5" />
+                            <span>Tải ảnh từ máy / điện thoại</span>
+                          </>
+                        )}
+                      </button>
+
+                      <span className="text-[11px] text-gray-500">
+                        hoặc chọn ảnh mẫu / dán link
+                      </span>
+                    </div>
+
+                    {/* Feedback message */}
+                    {uploadMessage && (
+                      <p
+                        className={`text-[11px] font-semibold flex items-center gap-1 ${
+                          uploadMessage.type === 'success' ? 'text-emerald-600' : 'text-red-500'
+                        }`}
+                      >
+                        {uploadMessage.type === 'success' ? (
+                          <Check className="w-3 h-3" />
+                        ) : (
+                          <AlertCircle className="w-3 h-3" />
+                        )}
+                        <span>{uploadMessage.text}</span>
+                      </p>
+                    )}
+
+                    {/* Direct URL input */}
+                    <input
+                      type="text"
+                      name="image"
+                      required
+                      value={selectedImage}
+                      onChange={(e) => setSelectedImage(e.target.value)}
+                      placeholder="/images/hue-danang.jpg hoặc https://..."
+                      className="w-full px-3 py-1.5 rounded-lg border border-gray-200 text-xs focus:ring-2 focus:ring-brand-500 outline-none bg-white font-mono text-gray-700"
+                    />
+                  </div>
+                </div>
+
+                {/* Preset Suggestions */}
+                <div className="pt-1">
+                  <p className="text-[11px] font-semibold text-gray-500 mb-1.5">
+                    Ảnh mẫu có sẵn trên website (nhấp để chọn nhanh):
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {PRESET_IMAGES.map((preset) => (
+                      <button
+                        key={preset.url}
+                        type="button"
+                        onClick={() => {
+                          setSelectedImage(preset.url);
+                          setUploadMessage({ type: 'success', text: `Đã chọn: ${preset.label}` });
+                        }}
+                        className={`text-[11px] px-2.5 py-1 rounded-lg border transition ${
+                          selectedImage === preset.url
+                            ? 'bg-gold-50 border-gold-500 text-brand-900 font-bold'
+                            : 'bg-white border-gray-200 text-gray-600 hover:border-brand-300'
+                        }`}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
