@@ -78,7 +78,7 @@ export default function AdminDashboardPage() {
               <Sparkles className="w-3.5 h-3.5" />
               <span>Huyền Trang Tour Management System</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+            <h2 className="text-2xl sm:text-3xl font-extrabold font-sans text-white">
               Chào mừng trở lại, Ban Quản Trị!
             </h2>
             <p className="text-sm text-blue-100/80 mt-1 max-w-2xl">
@@ -116,7 +116,7 @@ export default function AdminDashboardPage() {
               <Car className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-heading">
+          <div className="text-3xl font-extrabold text-brand-900 font-sans">
             {stats?.totalServices ?? 13}
           </div>
           <p className="text-xs text-emerald-600 font-semibold mt-2 flex items-center gap-1">
@@ -133,7 +133,7 @@ export default function AdminDashboardPage() {
               <Clock className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-amber-600 font-heading">
+          <div className="text-3xl font-extrabold text-amber-600 font-sans">
             {stats?.pendingReviews ?? 0}
           </div>
           <p className="text-xs text-gray-500 mt-2">
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
               <Star className="w-5 h-5 fill-current" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-heading flex items-center gap-2">
+          <div className="text-3xl font-extrabold text-brand-900 font-sans flex items-center gap-2">
             <span>{stats?.averageRating?.toFixed(1) ?? '5.0'}</span>
             <span className="text-base text-gold-500 font-normal">/ 5.0</span>
           </div>
@@ -166,7 +166,7 @@ export default function AdminDashboardPage() {
               <Users className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-heading">
+          <div className="text-3xl font-extrabold text-brand-900 font-sans">
             {stats?.totalCustomers ?? 0}
           </div>
           <p className="text-xs text-gray-500 mt-2">
@@ -180,7 +180,7 @@ export default function AdminDashboardPage() {
         {/* Rating Breakdown */}
         <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-base font-bold text-brand-900 font-heading">
+            <h3 className="text-base font-bold text-brand-900 font-sans">
               Phân Bố Số Sao Đánh Giá
             </h3>
             <span className="text-xs text-gray-400 font-medium">Đã duyệt</span>
@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
         <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-gray-100 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base font-bold text-brand-900 font-heading">
+              <h3 className="text-base font-bold text-brand-900 font-sans">
                 Lối Tắt Quản Trị Nhanh
               </h3>
               <span className="text-xs font-semibold text-gold-600 bg-gold-50 px-2.5 py-1 rounded-md">
@@ -302,7 +302,7 @@ export default function AdminDashboardPage() {
       <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-base sm:text-lg font-bold text-brand-900 font-heading">
+            <h3 className="text-base sm:text-lg font-bold text-brand-900 font-sans">
               Đánh Giá Mới Nhận Gần Đây
             </h3>
             <p className="text-xs text-gray-500 mt-0.5">

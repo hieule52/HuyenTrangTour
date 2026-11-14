@@ -45,7 +45,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="font-heading font-bold text-base tracking-wide text-white">
+            <h2 className="font-sans font-extrabold text-base tracking-wider text-white">
               HUYỀN TRANG
             </h2>
             <p className="text-[10px] tracking-widest uppercase font-bold text-gold-400">

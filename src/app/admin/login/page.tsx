@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
           <div className="w-16 h-16 rounded-2xl bg-brand-500 text-gold-400 flex items-center justify-center mx-auto mb-4 shadow-lg">
             <ShieldCheck className="w-10 h-10" />
           </div>
-          <h1 className="text-2xl font-bold font-heading text-brand-900">
+          <h1 className="text-2xl font-bold font-sans text-brand-900">
             HUYỀN TRANG TOUR
           </h1>
           <p className="text-xs uppercase tracking-widest text-gold-600 font-bold mt-1">

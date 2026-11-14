@@ -28,7 +28,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between shadow-xs">
       <div>
-        <h1 className="text-lg md:text-xl font-bold font-heading text-brand-900 tracking-tight">
+        <h1 className="text-lg md:text-xl font-bold font-sans text-brand-900 tracking-tight">
           {current.title}
         </h1>
         <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
