@@ -99,9 +99,9 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       {/* Top Header */}
-      <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex items-center justify-between">
+      <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold font-heading text-brand-900">
+          <h2 className="text-lg sm:text-xl font-bold font-sans text-brand-900">
             Cấu Hình Hệ Thống & Thông Tin Liên Hệ
           </h2>
           <p className="text-xs text-gray-500 mt-0.5">
@@ -109,7 +109,7 @@ export default function AdminSettingsPage() {
           </p>
         </div>
 
-        <div className="w-10 h-10 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center flex-shrink-0">
           <Settings className="w-5 h-5" />
         </div>
       </div>

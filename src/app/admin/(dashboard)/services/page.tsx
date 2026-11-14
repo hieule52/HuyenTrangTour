@@ -228,9 +228,9 @@ export default function AdminServicesPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100">
         <div>
-          <h2 className="text-xl font-bold font-heading text-brand-900">
+          <h2 className="text-lg sm:text-xl font-bold font-sans text-brand-900">
             Danh Sách Tuyến Xe & Dịch Vụ ({services.length})
           </h2>
           <p className="text-xs text-gray-500 mt-0.5">
@@ -245,7 +245,7 @@ export default function AdminServicesPage() {
             setUploadMessage(null);
             setIsModalOpen(true);
           }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-brand-950 font-bold text-xs shadow-md hover:shadow-lg hover:from-gold-400 hover:to-gold-500 transition-all active:scale-95"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 text-brand-950 font-bold text-xs shadow-md hover:shadow-lg hover:from-gold-400 hover:to-gold-500 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Thêm Tuyến Mới</span>
@@ -290,19 +290,19 @@ export default function AdminServicesPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-gray-50 text-gray-600 uppercase tracking-wider font-semibold border-b border-gray-100">
                 <tr>
-                  <th className="py-3.5 px-4">Tuyến xe</th>
-                  <th className="py-3.5 px-4">Danh mục</th>
-                  <th className="py-3.5 px-4">Giá 4 Chỗ</th>
-                  <th className="py-3.5 px-4">Giá 7 Chỗ</th>
-                  <th className="py-3.5 px-4 text-center">Nổi bật</th>
-                  <th className="py-3.5 px-4 text-center">Trạng thái</th>
-                  <th className="py-3.5 px-4 text-right">Thao tác</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Tuyến xe</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Danh mục</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Giá 4 Chỗ</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Giá 7 Chỗ</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Nổi bật</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Trạng thái</th>
+                  <th className="py-3.5 px-4 text-right whitespace-nowrap">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filtered.map((service) => (
                   <tr key={service.id} className="hover:bg-gray-50/80 transition-colors">
-                    <td className="py-3.5 px-4">
+                    <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-10 rounded-lg overflow-hidden relative flex-shrink-0 border border-gray-200">
                           <img
@@ -407,8 +407,8 @@ export default function AdminServicesPage() {
 
       {/* Add / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 my-8">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-2xl w-full p-4 sm:p-8 shadow-2xl border border-gray-100 my-4 sm:my-8 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
               <h3 className="text-lg font-bold font-sans text-brand-900">
                 {editingService ? 'Chỉnh Sửa Tuyến Xe' : 'Thêm Tuyến Xe Mới'}

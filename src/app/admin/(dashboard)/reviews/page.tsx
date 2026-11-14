@@ -116,9 +116,9 @@ export default function AdminReviewsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100">
         <div>
-          <h2 className="text-xl font-bold font-heading text-brand-900">
+          <h2 className="text-lg sm:text-xl font-bold font-sans text-brand-900">
             Quản Lý & Kiểm Duyệt Đánh Giá ({reviews.length})
           </h2>
           <p className="text-xs text-gray-500 mt-0.5">
@@ -127,12 +127,12 @@ export default function AdminReviewsPage() {
         </div>
 
         {/* Status quick tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-gray-100 rounded-xl">
+        <div className="flex items-center gap-1.5 p-1 bg-gray-100 rounded-xl overflow-x-auto max-w-full">
           {['ALL', 'PENDING', 'APPROVED', 'REJECTED'].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
                 statusFilter === st
                   ? 'bg-white text-brand-900 shadow-sm'
                   : 'text-gray-600 hover:text-gray-900'
@@ -186,13 +186,13 @@ export default function AdminReviewsPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-gray-50 text-gray-600 uppercase tracking-wider font-semibold border-b border-gray-100">
                 <tr>
-                  <th className="py-3.5 px-4">Khách hàng</th>
-                  <th className="py-3.5 px-4">Tuyến xe</th>
-                  <th className="py-3.5 px-4">Số sao</th>
-                  <th className="py-3.5 px-4">Nội dung</th>
-                  <th className="py-3.5 px-4 text-center">Ảnh</th>
-                  <th className="py-3.5 px-4 text-center">Trạng thái</th>
-                  <th className="py-3.5 px-4 text-right">Hành động</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Khách hàng</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Tuyến xe</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Số sao</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Nội dung</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Ảnh</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Trạng thái</th>
+                  <th className="py-3.5 px-4 text-right whitespace-nowrap">Hành động</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -326,10 +326,10 @@ export default function AdminReviewsPage() {
 
       {/* Review Detail Modal */}
       {selectedReview && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-gray-100 my-8">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full p-4 sm:p-8 shadow-2xl border border-gray-100 my-4 sm:my-8 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
-              <h3 className="text-base font-bold font-heading text-brand-900">
+              <h3 className="text-base font-bold font-sans text-brand-900">
                 Chi Tiết Đánh Giá Của Khách Hàng
               </h3>
               <button

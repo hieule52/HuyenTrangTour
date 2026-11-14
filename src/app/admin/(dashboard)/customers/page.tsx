@@ -48,9 +48,9 @@ export default function AdminCustomersPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100">
         <div>
-          <h2 className="text-xl font-bold font-heading text-brand-900">
+          <h2 className="text-lg sm:text-xl font-bold font-sans text-brand-900">
             Danh Sách Khách Hàng ({customers.length})
           </h2>
           <p className="text-xs text-gray-500 mt-0.5">
@@ -58,7 +58,7 @@ export default function AdminCustomersPage() {
           </p>
         </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-brand-700 text-xs font-semibold border border-blue-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-brand-700 text-xs font-semibold border border-blue-100 self-start sm:self-auto">
           <ShieldCheck className="w-4 h-4 text-brand-600" />
           <span>Bảo mật dữ liệu quản trị viên</span>
         </div>
@@ -88,12 +88,12 @@ export default function AdminCustomersPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-gray-50 text-gray-600 uppercase tracking-wider font-semibold border-b border-gray-100">
                 <tr>
-                  <th className="py-3.5 px-4">Khách hàng</th>
-                  <th className="py-3.5 px-4">Email</th>
-                  <th className="py-3.5 px-4">Vai trò</th>
-                  <th className="py-3.5 px-4">Ngày đăng ký</th>
-                  <th className="py-3.5 px-4 text-center">Tổng đánh giá</th>
-                  <th className="py-3.5 px-4 text-center">Điểm TB</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Khách hàng</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Email</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Vai trò</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap">Ngày đăng ký</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Tổng đánh giá</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap">Điểm TB</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">

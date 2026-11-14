@@ -13,6 +13,7 @@ import {
   LogOut,
   ExternalLink,
   ShieldCheck,
+  X,
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -23,6 +24,7 @@ interface AdminSidebarProps {
     image?: string | null;
     role?: string;
   };
+  onClose?: () => void;
 }
 
 const NAV_ITEMS = [
@@ -33,14 +35,14 @@ const NAV_ITEMS = [
   { href: '/admin/settings', label: 'Cấu Hình Hệ Thống', icon: Settings },
 ];
 
-export default function AdminSidebar({ user }: AdminSidebarProps) {
+export default function AdminSidebar({ user, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-full lg:w-72 bg-brand-900 text-white flex flex-col flex-shrink-0 lg:min-h-screen border-r border-brand-800">
+    <aside className="w-full h-full lg:w-72 bg-brand-900 text-white flex flex-col flex-shrink-0 lg:min-h-screen border-r border-brand-800">
       {/* Brand Header */}
-      <div className="p-6 border-b border-brand-800/80 flex items-center justify-between">
-        <Link href="/admin" className="flex items-center gap-3">
+      <div className="p-5 sm:p-6 border-b border-brand-800/80 flex items-center justify-between">
+        <Link href="/admin" onClick={onClose} className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-gold-600 to-gold-400 text-brand-900 flex items-center justify-center font-bold shadow-md">
             <ShieldCheck className="w-6 h-6" />
           </div>
@@ -53,6 +55,18 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
             </p>
           </div>
         </Link>
+
+        {/* Close Button on Mobile Drawer */}
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="lg:hidden p-2 rounded-xl text-gray-400 hover:text-white hover:bg-brand-800 transition"
+            aria-label="Đóng menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
@@ -69,6 +83,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all ${
                 isActive
                   ? 'bg-gradient-to-r from-gold-500 to-gold-600 text-brand-950 shadow-md font-bold'
@@ -88,6 +103,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         <Link
           href="/vi"
           target="_blank"
+          onClick={onClose}
           className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-brand-800/60 transition-colors"
         >
           <span className="flex items-center gap-2.5">

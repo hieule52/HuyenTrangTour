@@ -68,36 +68,36 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto">
       {/* Top Welcome Card */}
-      <div className="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 rounded-2xl sm:rounded-3xl p-5 sm:p-8 text-white shadow-xl relative overflow-hidden">
         <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-gold-500/10 rounded-full blur-2xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-400/20 text-gold-300 text-xs font-bold mb-3 border border-gold-400/30">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Huyền Trang Tour Management System</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold font-sans text-white">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold font-sans text-white">
               Chào mừng trở lại, Ban Quản Trị!
             </h2>
-            <p className="text-sm text-blue-100/80 mt-1 max-w-2xl">
+            <p className="text-xs sm:text-sm text-blue-100/80 mt-1 max-w-2xl leading-relaxed">
               Theo dõi hiệu suất vận hành, kiểm duyệt đánh giá khách hàng và quản lý toàn bộ 13 tuyến xe riêng miền Trung.
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap sm:flex-nowrap">
             <button
               onClick={fetchStats}
               disabled={isLoading}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all border border-white/10"
+              className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-all border border-white/10 active:scale-95"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
               <span>Làm mới</span>
             </button>
             <Link
               href="/admin/reviews"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-brand-950 text-xs font-bold shadow-md transition-all active:scale-95"
+              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-brand-950 text-xs font-bold shadow-md transition-all active:scale-95"
             >
               <span>Duyệt đánh giá</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -106,71 +106,79 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* 4 Primary Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* 4 Primary Stats Cards (2 cols on mobile, 4 cols on lg) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {/* Total Services */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">Tuyến Xe / Dịch Vụ</span>
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
-              <Car className="w-5 h-5" />
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-gray-500">Tuyến Xe</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center">
+                <Car className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-900 font-sans">
+              {stats?.totalServices ?? 13}
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-sans">
-            {stats?.totalServices ?? 13}
-          </div>
-          <p className="text-xs text-emerald-600 font-semibold mt-2 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            {stats?.activeServices ?? 13} tuyến đang hoạt động công khai
+          <p className="text-[11px] sm:text-xs text-emerald-600 font-semibold mt-2 flex items-center gap-1 truncate">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+            <span>{stats?.activeServices ?? 13} tuyến đang chạy</span>
           </p>
         </div>
 
         {/* Pending Reviews */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">Đánh Giá Chờ Duyệt</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Clock className="w-5 h-5" />
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-gray-500">Chờ Duyệt</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-amber-600 font-sans">
+              {stats?.pendingReviews ?? 0}
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-amber-600 font-sans">
-            {stats?.pendingReviews ?? 0}
-          </div>
-          <p className="text-xs text-gray-500 mt-2">
-            Tổng cộng {stats?.totalReviews ?? 0} đánh giá trong hệ thống
+          <p className="text-[11px] sm:text-xs text-gray-500 mt-2 truncate">
+            Tổng {stats?.totalReviews ?? 0} đánh giá
           </p>
         </div>
 
         {/* Average Rating */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">Điểm Đánh Giá TB</span>
-            <div className="w-10 h-10 rounded-xl bg-gold-50 text-gold-600 flex items-center justify-center">
-              <Star className="w-5 h-5 fill-current" />
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-gray-500">Điểm ĐG</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gold-50 text-gold-600 flex items-center justify-center">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-900 font-sans flex items-center gap-1.5">
+              <span>{stats?.averageRating?.toFixed(1) ?? '5.0'}</span>
+              <span className="text-xs sm:text-sm text-gold-500 font-normal">/ 5.0</span>
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-sans flex items-center gap-2">
-            <span>{stats?.averageRating?.toFixed(1) ?? '5.0'}</span>
-            <span className="text-base text-gold-500 font-normal">/ 5.0</span>
-          </div>
-          <p className="text-xs text-emerald-600 font-semibold mt-2">
-            {stats?.approvedReviews ?? 0} đánh giá đã được duyệt
+          <p className="text-[11px] sm:text-xs text-emerald-600 font-semibold mt-2 truncate">
+            {stats?.approvedReviews ?? 0} đã duyệt
           </p>
         </div>
 
         {/* Total Customers */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-500">Khách Hàng Google</span>
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-              <Users className="w-5 h-5" />
+        <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-gray-500">Khách Hàng</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+            </div>
+            <div className="text-2xl sm:text-3xl font-extrabold text-brand-900 font-sans">
+              {stats?.totalCustomers ?? 0}
             </div>
           </div>
-          <div className="text-3xl font-extrabold text-brand-900 font-sans">
-            {stats?.totalCustomers ?? 0}
-          </div>
-          <p className="text-xs text-gray-500 mt-2">
-            Tài khoản đã đăng nhập hệ thống
+          <p className="text-[11px] sm:text-xs text-gray-500 mt-2 truncate">
+            Tài khoản Google
           </p>
         </div>
       </div>

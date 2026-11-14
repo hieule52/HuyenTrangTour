@@ -43,3 +43,8 @@ next-env.d.ts
 .agents/
 .agents
 
+# User Uploads
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+

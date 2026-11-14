@@ -21,8 +21,8 @@ export default function AdminLoginPage() {
   const isAccessDenied = status === 'authenticated' && session?.user?.role !== 'ADMIN';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
+    <div className="min-h-screen bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 flex items-center justify-center p-3 sm:p-4">
+      <div className="w-full max-w-md bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/20">
         {/* Brand header */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-brand-500 text-gold-400 flex items-center justify-center mx-auto mb-4 shadow-lg">
