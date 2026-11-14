@@ -33,99 +33,46 @@ interface CustomerReviewsSectionProps {
   services?: Array<{ id: string; slug: string; title: string }>;
 }
 
-const DEFAULT_FALLBACK_REVIEWS: ReviewItem[] = [
-  {
-    id: 'sample-1',
-    rating: 5,
-    content:
-      'Chuyến đi Huế – Đà Nẵng qua đèo Hải Vân vô cùng tuyệt vời! Xe VinFast êm ái, yên tĩnh không một chút mùi xăng, bác tài lái rất cẩn thận và nhiệt tình dừng lại ở đỉnh đèo cho gia đình chụp ảnh lưu niệm. Rất hài lòng và sẽ tiếp tục ủng hộ HUYỀN TRANG TOUR!',
-    locale: 'vi',
-    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    user: {
-      name: 'Nguyễn Thanh Tùng',
-      image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop',
-    },
-    service: {
-      id: 'hue-danang',
-      slug: 'hue-danang',
-      title: 'Huế – Đà Nẵng',
-    },
-    images: [
-      { id: 'img-1', imageUrl: '/images/hue3diem.jpg' },
-      { id: 'img-2', imageUrl: '/images/Hue4diem.jpg' },
-    ],
-  },
-  {
-    id: 'sample-2',
-    rating: 5,
-    content:
-      'We booked the Hue City Tour 5 sites for our family. Outstanding service! The car was spotlessly clean, whisper-quiet electric ride, and the driver was punctual and courteous. Highly recommended for international travelers visiting Hue!',
-    locale: 'en',
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    user: {
-      name: 'David Miller',
-      image: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&h=100&fit=crop',
-    },
-    service: {
-      id: 'hue-city-5',
-      slug: 'hue-city-5',
-      title: 'Huế City Tour – 5 điểm',
-    },
-    images: [{ id: 'img-3', imageUrl: '/images/Hue5diem.png' }],
-  },
-  {
-    id: 'sample-3',
-    rating: 5,
-    content:
-      'Đặt xe đón sân bay Phú Bài về khách sạn Silk Path. Tài xế đón đúng giờ có biển tên, hỗ trợ mang hành lý rất chu đáo. Xe mới tinh, ngồi rất êm không bị say xe chút nào. Giá cả minh bạch trọn gói đúng như cam kết.',
-    locale: 'vi',
-    createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
-    user: {
-      name: 'Trần Thị Mai Lan',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-    },
-    service: {
-      id: 'hue-airport',
-      slug: 'hue-airport',
-      title: 'Huế – Sân bay Phú Bài',
-    },
-    images: [],
-  },
-];
-
 export default function CustomerReviewsSection({
   locale = 'vi',
   serviceId,
   services = [],
 }: CustomerReviewsSectionProps) {
-  const [reviews, setReviews] = useState<ReviewItem[]>(DEFAULT_FALLBACK_REVIEWS);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedRating, setSelectedRating] = useState<string>('all');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [stats, setStats] = useState({
-    totalApproved: 3,
+    totalApproved: 0,
     averageRating: 5.0,
-    starCounts: { 5: 3, 4: 0, 3: 0, 2: 0, 1: 0 } as Record<number, number>,
+    starCounts: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } as Record<number, number>,
   });
   const [visibleCount, setVisibleCount] = useState<number>(6);
   const [lightboxImg, setLightboxImg] = useState<string | null>(null);
 
   const fetchReviews = async () => {
     try {
+      setLoading(true);
       const url = new URL('/api/reviews', window.location.origin);
       if (serviceId) url.searchParams.set('serviceId', serviceId);
       if (selectedRating !== 'all') url.searchParams.set('rating', selectedRating);
 
-      const res = await fetch(url.toString());
+      const res = await fetch(url.toString(), { cache: 'no-store' });
       const data = await res.json();
 
-      if (data.success && data.reviews && data.reviews.length > 0) {
-        setReviews(data.reviews);
+      if (data.success) {
+        setReviews(data.reviews || []);
         if (data.stats) {
           setStats(data.stats);
         }
+      } else {
+        setReviews([]);
       }
     } catch (e) {
-      console.log('Using default reviews preview');
+      console.error('Error fetching reviews:', e);
+      setReviews([]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -288,97 +235,144 @@ export default function CustomerReviewsSection({
         </div>
 
         {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredReviews.slice(0, visibleCount).map((review) => (
-            <div
-              key={review.id}
-              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group"
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 animate-pulse space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gray-200" />
+                  <div className="space-y-2 flex-1">
+                    <div className="h-4 bg-gray-200 rounded w-1/2" />
+                    <div className="h-3 bg-gray-100 rounded w-1/3" />
+                  </div>
+                </div>
+                <div className="h-3 bg-gray-100 rounded w-full" />
+                <div className="h-3 bg-gray-100 rounded w-4/5" />
+              </div>
+            ))}
+          </div>
+        ) : filteredReviews.length === 0 ? (
+          <div className="text-center py-14 px-4 bg-white/80 backdrop-blur-sm rounded-3xl border border-dashed border-gray-200 max-w-xl mx-auto shadow-sm">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 text-gold-600 flex items-center justify-center mx-auto mb-3.5 shadow-sm">
+              <MessageSquare className="w-7 h-7" />
+            </div>
+            <h4 className="text-base font-bold text-gray-800 mb-1">
+              {locale === 'vi' && 'Chưa có đánh giá nào'}
+              {locale === 'en' && 'No reviews yet'}
+              {locale === 'fr' && 'Aucun avis pour le moment'}
+              {locale === 'zh' && '暂无评价'}
+              {locale === 'ko' && '아직 등록된 후기가 없습니다'}
+              {locale === 'ja' && 'まだレビューがありません'}
+            </h4>
+            <p className="text-xs text-gray-500 mb-5 max-w-sm mx-auto leading-relaxed">
+              {locale === 'vi' && 'Hãy là người đầu tiên chia sẻ trải nghiệm của bạn cùng HUYỀN TRANG TOUR!'}
+              {locale === 'en' && 'Be the first to share your experience with HUYEN TRANG TOUR!'}
+              {locale === 'fr' && 'Soyez le premier à partager votre expérience avec nous!'}
+              {locale === 'zh' && '成为第一个分享您旅行体验的旅客！'}
+              {locale === 'ko' && '첫 번째 여행 후기를 남겨주세요!'}
+              {locale === 'ja' && '最初のご感想をぜひお聞かせください！'}
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gold-600 hover:bg-gold-700 text-white font-bold text-xs shadow-md transition-all active:scale-95"
             >
-              <div>
-                {/* Header: User avatar + info */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    {review.user.image ? (
-                      <img
-                        src={review.user.image}
-                        alt={review.user.name || 'Khách hàng'}
-                        className="w-11 h-11 rounded-full object-cover border-2 border-gold-200 shadow-sm"
-                      />
-                    ) : (
-                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-600 to-brand-700 text-white font-bold flex items-center justify-center text-sm shadow-sm">
-                        {review.user.name?.charAt(0) || 'K'}
-                      </div>
-                    )}
-                    <div>
-                      <h4 className="text-sm font-bold text-gray-900 group-hover:text-brand-600 transition-colors">
-                        {review.user.name || 'Khách du lịch'}
-                      </h4>
-                      <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
-                        <Calendar className="w-3 h-3" />
-                        <span>{new Date(review.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US')}</span>
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>{locale === 'vi' ? 'Viết đánh giá ngay' : 'Write a review'}</span>
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredReviews.slice(0, visibleCount).map((review) => (
+              <div
+                key={review.id}
+                className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between group"
+              >
+                <div>
+                  {/* Header: User avatar + info */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      {review.user.image ? (
+                        <img
+                          src={review.user.image}
+                          alt={review.user.name || 'Khách hàng'}
+                          className="w-11 h-11 rounded-full object-cover border-2 border-gold-200 shadow-sm"
+                        />
+                      ) : (
+                        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-600 to-brand-700 text-white font-bold flex items-center justify-center text-sm shadow-sm">
+                          {review.user.name?.charAt(0) || 'K'}
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="text-sm font-bold text-gray-900 group-hover:text-brand-600 transition-colors">
+                          {review.user.name || 'Khách du lịch'}
+                        </h4>
+                        <div className="flex items-center gap-1.5 text-[11px] text-gray-400">
+                          <Calendar className="w-3 h-3" />
+                          <span>{new Date(review.createdAt).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US')}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
-                    <CheckCircle className="w-3 h-3 text-emerald-600" />
-                    <span>Verified</span>
-                  </span>
-                </div>
-
-                {/* Stars + Route Tag */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <div className="flex items-center gap-0.5">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star
-                        key={s}
-                        className={`w-4 h-4 ${
-                          s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-200'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {review.service && (
-                    <span className="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-100 truncate max-w-[150px]">
-                      {review.service.title}
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
+                      <CheckCircle className="w-3 h-3 text-emerald-600" />
+                      <span>Verified</span>
                     </span>
+                  </div>
+
+                  {/* Stars + Route Tag */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star
+                          key={s}
+                          className={`w-4 h-4 ${
+                            s <= review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-200'
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    {review.service && (
+                      <span className="text-[11px] font-semibold text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-md border border-brand-100 truncate max-w-[150px]">
+                        {review.service.title}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Review text */}
+                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-4">
+                    "{review.content}"
+                  </p>
+
+                  {/* Photos if any */}
+                  {review.images && review.images.length > 0 && (
+                    <div className="mt-4 grid grid-cols-4 gap-2">
+                      {review.images.map((img) => (
+                        <button
+                          key={img.id}
+                          type="button"
+                          onClick={() => setLightboxImg(img.imageUrl)}
+                          className="relative aspect-square rounded-lg overflow-hidden border border-gray-100 hover:opacity-90 hover:scale-105 transition-all"
+                        >
+                          <img src={img.imageUrl} alt="Review attachment" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
                   )}
                 </div>
 
-                {/* Review text */}
-                <p className="text-sm text-gray-700 leading-relaxed line-clamp-4">
-                  "{review.content}"
-                </p>
-
-                {/* Photos if any */}
-                {review.images && review.images.length > 0 && (
-                  <div className="mt-4 grid grid-cols-4 gap-2">
-                    {review.images.map((img) => (
-                      <button
-                        key={img.id}
-                        type="button"
-                        onClick={() => setLightboxImg(img.imageUrl)}
-                        className="relative aspect-square rounded-lg overflow-hidden border border-gray-100 hover:opacity-90 hover:scale-105 transition-all"
-                      >
-                        <img src={img.imageUrl} alt="Review attachment" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
+                {/* Bottom footer: Locale badge */}
+                <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-[11px] text-gray-400">
+                  <span className="flex items-center gap-1">
+                    <Globe className="w-3 h-3" />
+                    <span>{review.locale.toUpperCase()}</span>
+                  </span>
+                  <span className="text-gold-600 font-medium">HUYỀN TRANG TOUR</span>
+                </div>
               </div>
-
-              {/* Bottom footer: Locale badge */}
-              <div className="mt-4 pt-3 border-t border-gray-50 flex items-center justify-between text-[11px] text-gray-400">
-                <span className="flex items-center gap-1">
-                  <Globe className="w-3 h-3" />
-                  <span>{review.locale.toUpperCase()}</span>
-                </span>
-                <span className="text-gold-600 font-medium">HUYỀN TRANG TOUR</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Load More Button */}
         {filteredReviews.length > visibleCount && (

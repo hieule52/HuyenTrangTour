@@ -65,6 +65,20 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.includes('#reviews')) {
+      e.preventDefault();
+      setIsMobileOpen(false);
+      const reviewsEl = document.getElementById('reviews');
+      if (reviewsEl) {
+        reviewsEl.scrollIntoView({ behavior: 'smooth' });
+        window.history.replaceState(null, '', '#reviews');
+      } else {
+        router.push('/#reviews');
+      }
+    }
+  };
+
   const currentLang = LANGUAGES.find((l) => l.code === locale) || LANGUAGES[0];
 
   return (
@@ -96,6 +110,7 @@ export default function Header() {
                 <Link
                   key={item.key}
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ${
                     isActive(item.href)
                       ? 'text-brand-500 bg-brand-50 font-semibold'
@@ -302,7 +317,13 @@ export default function Header() {
                   <Link
                     key={item.key}
                     href={item.href}
-                    onClick={() => setIsMobileOpen(false)}
+                    onClick={(e) => {
+                      if (item.href.includes('#reviews')) {
+                        handleNavClick(e, item.href);
+                      } else {
+                        setIsMobileOpen(false);
+                      }
+                    }}
                     className={`flex items-center px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                       isActive(item.href)
                         ? 'text-gold-300 bg-white/10 font-bold'
