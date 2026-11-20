@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const isVi = locale === 'vi';
   return {
-    metadataBase: new URL('https://huyentrangtour.com'),
+    metadataBase: new URL('https://www.huyentrangtour.com'),
     title: {
       default: isVi ? 'HUYỀN TRANG TOUR | Xe Đưa Đón Du Lịch Riêng Tư Huế' : 'HUYEN TRANG TOUR | Private Car Service in Central Vietnam',
       template: '%s | HUYỀN TRANG TOUR'
@@ -48,16 +48,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     openGraph: {
       type: 'website',
       locale: locale === 'vi' ? 'vi_VN' : locale === 'en' ? 'en_US' : locale,
-      url: 'https://huyentrangtour.com',
+      url: 'https://www.huyentrangtour.com',
       siteName: 'HUYỀN TRANG TOUR',
       title: isVi ? 'HUYỀN TRANG TOUR | Xe Đưa Đón Riêng Tư Huế' : 'HUYEN TRANG TOUR | Private Car Service Hue',
       description: isVi ? 'Dịch vụ xe đưa đón du lịch riêng tư VinFast Limo Green 7 chỗ tại Huế và miền Trung.' : 'Premium private car transfers in Central Vietnam.',
-      images: [{ url: '/images/sefiWithKhach.jpg', width: 1200, height: 630, alt: 'HUYỀN TRANG TOUR' }],
+      images: [
+        {
+          url: '/images/logoHT.png',
+          width: 1200,
+          height: 630,
+          alt: 'HUYỀN TRANG TOUR',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'HUYỀN TRANG TOUR | Private Car Service Hue',
-      description: 'Premium VinFast Limo Green private car service in Central Vietnam.',
+      title: isVi ? 'HUYỀN TRANG TOUR | Xe Đưa Đón Riêng Tư Huế' : 'HUYEN TRANG TOUR | Private Car Service Hue',
+      description: isVi ? 'Dịch vụ xe đưa đón du lịch riêng tư VinFast Limo Green 7 chỗ tại Huế và miền Trung.' : 'Premium private car transfers in Central Vietnam.',
+      images: ['/images/logoHT.png'],
     },
     robots: { index: true, follow: true },
     alternates: {
